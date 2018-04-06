@@ -1,0 +1,11 @@
+<widget>
+    <display-name>Readable</display-name>
+    <interfaces>
+        <interface>contentstudio.detailpanel</interface>
+    </interfaces>
+    <allow>
+        <principal>role:system.admin</principal>
+        <principal>role:myapp.myrole</principal>
+        <principal>role:cms.admin</principal>
+    </allow>
+</widget>

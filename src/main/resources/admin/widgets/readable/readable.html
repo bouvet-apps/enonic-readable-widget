@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" data-th-href="${portal.assetUrl({'_path=css/readable.css'})}"
+          type="text/css" media="all"/>
+    <meta charset="UTF-8">
+    <title>Readable</title>
+</head>
+<body data-th-id="'readableid_' + ${uid}">
+<div class="com-bouvet-widgets-readable com-bouvet-widgets-readable--state-not-started">
+    <div class="com-bouvet-widgets-readable__wrapper">
+        <div id="com-bouvet-widgets-readable__version">
+            <small>Beta <strong>v1.0</strong></small>
+        </div>
+        <div id="com-bouvet-widgets-readable__report">
+            <div id="com-bouvet-widgets-readable__score"></div>
+            <canvas id="com-bouvet-widgets-readable__chart"></canvas>
+            <div id="com-bouvet-widgets-readable__score-label">
+                <strong>Average score</strong>
+            </div>
+        </div>
+        <div id="com-bouvet-widgets-readable__grade-level" class="com-bouvet-widgets-readable__row"></div>
+        <div id="com-bouvet-widgets-readable__reading-level" class="com-bouvet-widgets-readable__row"></div>
+        <button id="com-bouvet-widgets-readable__analyze-button">
+            <svg id="com-bouvet-widgets-readable__analyze-icon" xmlns="http://www.w3.org/2000/svg" width="24"
+                 height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" color="#ffffff">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+            <svg id="com-bouvet-widgets-readable__analyze-spinner" xmlns="http://www.w3.org/2000/svg" width="24"
+                 height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                 stroke-linejoin="round">
+                <line x1="12" y1="2" x2="12" y2="6"></line>
+                <line x1="12" y1="18" x2="12" y2="22"></line>
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+                <line x1="2" y1="12" x2="6" y2="12"></line>
+                <line x1="18" y1="12" x2="22" y2="12"></line>
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+            </svg>
+            <strong>Run readable</strong></button>
+    </div>
+    <script data-th-src="${portal.assetUrl({'_path=js/Chart.bundle.js'})}"></script>
+    <script data-th-src="${portal.assetUrl({'_path=js/text-statistics.js'})}"></script>
+    <script data-th-src="${portal.assetUrl({'_path=js/doc-ready.js'})}"></script>
+    <script data-th-src="${portal.assetUrl({'_path=js/readable-client.js'})}"></script>
+</div>
+</body>
+</html>
