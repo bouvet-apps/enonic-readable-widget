@@ -1,4 +1,4 @@
-// readable-client.js | Beta v1.0
+// readable.js | Beta v1.0
 // Zulfeekar Cheriyampurath <zulu@bouvet.no> | (2018)
 // API Fork of text-statistics.js by Christopher Giffard
 // https://github.com/Bouvet
@@ -50,15 +50,15 @@
         else el.className = el.className.replace(new RegExp('\\b' + className + '\\b', 'g'), '');
     }
 
-    var cvDocument = cv_getDocument();
+    var widgetDocument = getWidgetDocument();
     var expanded = false;
-    var uid = cvDocument.baseURI.split('?uid=')[1];
+    var uid = widgetDocument.baseURI.split('?uid=')[1];
 
     if (uid.indexOf('&') > -1) {
         uid = uid.split('&')[0];
     }
 
-    function cv_getDocument() {
+    function getWidgetDocument() {
         var script = window.HTMLImports ? window.HTMLImports.currentScript : undefined;
 
         if (!script && !!document.currentScript) {
@@ -74,7 +74,7 @@
      * */
     function getWidgetContainer(containerId) {
         containerId = containerId + "_" + uid;
-        return document.getElementById(containerId) || cvDocument.getElementById(containerId);
+        return document.getElementById(containerId) || widgetDocument.getElementById(containerId);
     };
 
     function getContentItemPreviewPanel() {
@@ -145,17 +145,6 @@
             min: 0
         };
 
-        var LABELS = {
-            readingLevel: {
-                veryEasy: 'Very easy',
-                easy: 'Easy',
-                fairlyEasy: 'Fairly easy',
-                standard: 'Standard',
-                fairlyDifficult: 'Fairly difficult to read',
-                difficult: 'Difficult to read',
-                veryConfusing: 'Very confusing'
-            }
-        };
 
         /*
          @Options
@@ -163,7 +152,6 @@
         this.options = options || {};
         this.options.colors = COLORS;
         this.options.scores = SCORES;
-        this.options.labels = LABELS;
         this.options.tags = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'LI', 'DD'];
 
         /*
@@ -487,11 +475,9 @@
         }
         self.props.elementStyle = target.style;
         target.style.borderLeft = "3px solid " + color;
-        /*target.style.borderLeft = "1px dashed " + color;
-         target.style.borderRight = "1px dashed " + color;
-         target.style.borderBottom = "1px dashed " + color;*/
         target.style.backgroundColor = "#f1f1f1";
     }
+
 
     /**
      * mouseMove();
@@ -605,7 +591,7 @@
         self.props.tooltip.style.fontSize = '14px';
         self.props.tooltip.style.border = '1px solid #f1f1f1'
         self.props.tooltip.style.fontStyle = 'italic';
-        self.props.tooltip.zIndex = 999999;
+        self.props.tooltip.zIndex = 999999999;
         self.props.tooltip.style.top = self.props.tooltip.style.left = '0px';
         getContentItemPreviewPanel().appendChild(self.props.tooltip);
         getContentItemPreviewPanel().addEventListener('mousemove', self.mouseMove);
@@ -658,9 +644,8 @@
                 self.createChart(ctx);
                 // console.log('self.result.readingLevel: ', self.result.readingLevel);
                 document.getElementById('com-bouvet-widgets-readable__score').innerHTML = self.props.result.fKincaidReadingScore + '%';
-                document.getElementById('com-bouvet-widgets-readable__grade-level').innerHTML = 'Grade level: ' + '<strong>' + self.props.result.gradeLevel + '</strong>';
-                document.getElementById('com-bouvet-widgets-readable__reading-level').innerHTML = 'Reading level: ' + '<strong>' + self.props.result.readingLevel.label + '</strong>';
-
+                document.getElementById('com-bouvet-widgets-readable__grade-level').innerHTML = self.options.labels.gradeLevel + ': ' + '<strong>' + self.props.result.gradeLevel + '</strong>';
+                document.getElementById('com-bouvet-widgets-readable__reading-level').innerHTML = self.options.labels.readingLevel.title + ': ' + '<strong>' + self.props.result.readingLevel.label + '</strong>';
             }, 200);
 
 
@@ -704,14 +689,40 @@
                 contentItemPreviewPanel = getContentItemPreviewPanel(),
                 contentIframeWindow = getContentItemIframeWindow();
 
+
+            /*
+             * Get Json object of labels
+             * */
+            var GLOBAL_CONFIG = JSON.parse(widgetDocument.getElementById('com-bouvet-widget_' + uid + '-config-json').firstChild.data);
+
+            var LABELS = {
+                gradeLevel: GLOBAL_CONFIG.labels.gradeLevel,
+                readingLevel: {
+                    title: GLOBAL_CONFIG.labels.readingLevel,
+                    veryEasy: GLOBAL_CONFIG.labels.veryEasy,
+                    easy: GLOBAL_CONFIG.labels.easy,
+                    fairlyEasy: GLOBAL_CONFIG.labels.fairlyEasy,
+                    standard: GLOBAL_CONFIG.labels.standard,
+                    fairlyDifficult: GLOBAL_CONFIG.labels.fairlyDifficult,
+                    difficult: GLOBAL_CONFIG.labels.difficult,
+                    veryConfusing: GLOBAL_CONFIG.labels.veryConfusing
+                }
+            };
+
+
             /*
              * Creating new Readable instance
              * */
             readable = new BOUVET.widgets.enonic.readable({
                 widgetContainer: wContainer,
-                contentPanel: contentItemPreviewPanel
+                contentPanel: contentItemPreviewPanel,
+                labels:LABELS
             });
 
+
+            /*
+             * update on window resize
+             * */
             update = function (event) {
                 event.preventDefault();
                 if (readable && readable.props.elementsArray.length > 0) {
@@ -725,7 +736,6 @@
 
             analyzeButton.addEventListener('click', function () {
 
-
                 if (hasClass(widgetElement, 'com-bouvet-widgets-readable--state-not-started')) {
                     removeClass(widgetElement, 'com-bouvet-widgets-readable--state-not-started');
                     addClass(widgetElement, 'com-bouvet-widgets-readable--state-started');
@@ -733,7 +743,7 @@
 
                 setTimeout(function () {
                     readable.start();
-                }, 2000);
+                }, 200);
             });
 
             contentIframeWindow.addEventListener('resize', update);

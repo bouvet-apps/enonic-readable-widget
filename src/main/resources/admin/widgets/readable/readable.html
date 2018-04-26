@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
     <link rel="stylesheet" data-th-href="${portal.assetUrl({'_path=css/readable.css'})}"
           type="text/css" media="all"/>
-    <meta charset="UTF-8">
-    <title>Readable</title>
 </head>
 <body data-th-id="'readableid_' + ${uid}">
 <div class="com-bouvet-widgets-readable com-bouvet-widgets-readable--state-not-started">
@@ -17,7 +14,7 @@
             <div id="com-bouvet-widgets-readable__score"></div>
             <canvas id="com-bouvet-widgets-readable__chart"></canvas>
             <div id="com-bouvet-widgets-readable__score-label">
-                <strong>Average score</strong>
+                <strong data-th-text="${data.labels.averageScore}">Average score</strong>
             </div>
         </div>
         <div id="com-bouvet-widgets-readable__grade-level" class="com-bouvet-widgets-readable__row"></div>
@@ -40,12 +37,15 @@
                 <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
                 <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
             </svg>
-            <strong>Run readable</strong></button>
+            <strong data-th-text="${data.labels.analyze}">Run readable</strong></button>
     </div>
+    <script type="application/json" data-th-id="${'com-bouvet-widget_'+uid+'-config-json'}" th:inline="javascript">
+        [[${data}]]
+    </script>
     <script data-th-src="${portal.assetUrl({'_path=js/Chart.bundle.js'})}"></script>
     <script data-th-src="${portal.assetUrl({'_path=js/text-statistics.js'})}"></script>
     <script data-th-src="${portal.assetUrl({'_path=js/doc-ready.js'})}"></script>
-    <script data-th-src="${portal.assetUrl({'_path=js/readable-client.js'})}"></script>
+    <script data-th-src="${portal.assetUrl({'_path=js/readable.js'})}"></script>
 </div>
 </body>
 </html>
