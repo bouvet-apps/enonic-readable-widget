@@ -25,8 +25,8 @@ exports.get = function (req) {
         locale = content.language.split('_')[0];
     }
 
-    log.info('content-id === %s ',content._id);
-    log.info('locale === %s ',locale);
+    //log.info('content-id === %s ',content._id);
+    //log.info('locale === %s ',locale);
 
     var model = {};
     model.data = {};
