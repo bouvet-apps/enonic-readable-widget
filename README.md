@@ -28,12 +28,7 @@ Build your project with ``./gradlew build``
 
 | Version       | XP version |
 | ------------- | ---------- |
-| 1.4.0	        | 6.12.0 - |
-| 1.3.0	        | 6.12.0 - |
-| 1.2.0	        | 6.7.0 - 6.11.x |
-| 1.1.0         | 6.7.0 - 6.11.x |
-| 1.0.0         | 6.4.0 - 6.11.x |
-
+| 1.0.0	        | 6.12.0 - |
 
 ## Building and deploying
     ./gradlew clean build
