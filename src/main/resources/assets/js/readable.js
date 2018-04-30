@@ -743,7 +743,7 @@
 
                 setTimeout(function () {
                     readable.start();
-                }, 200);
+                }, 1000);
             });
 
             contentIframeWindow.addEventListener('resize', update);
