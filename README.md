@@ -1,4 +1,4 @@
-# Readable Beta v1.0
+# Readable v1.0
 
 ### Readability Scoring Widget for Enonic XP
 
@@ -16,7 +16,7 @@ The readable score is derived from a combination of the following metrics :
 Thirdparty JS Libraries :
 
 * Text-Statistics
-* Doc-Ready (We might not use it)
+* Doc-Ready
 * Chart.js
 
 
