@@ -1,7 +1,7 @@
 <widget>
     <display-name>Readable</display-name>
     <interfaces>
-        <interface>contentstudio.detailpanel</interface>
+        <interface>contentstudio.contextpanel</interface>
     </interfaces>
     <allow>
         <principal>role:system.admin</principal>

@@ -1,10 +1,10 @@
 <html>
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-    <link rel="stylesheet" data-th-href="${portal.assetUrl({'_path=css/readable.css'})}"
-          type="text/css" media="all"/>
 </head>
-<body data-th-id="'readableid_' + ${uid}">
+<widget data-th-id="'readableid_' + ${uid}">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+<link rel="stylesheet" data-th-href="${portal.assetUrl({'_path=css/readable.css'})}"
+          type="text/css" media="all"/>
 <div class="com-bouvet-widgets-readable com-bouvet-widgets-readable--state-not-started">
     <div class="com-bouvet-widgets-readable__wrapper">
         <div id="com-bouvet-widgets-readable__version">
@@ -47,5 +47,5 @@
     <script data-th-src="${portal.assetUrl({'_path=js/doc-ready.js'})}"></script>
     <script data-th-src="${portal.assetUrl({'_path=js/readable.js'})}"></script>
 </div>
-</body>
+</widget>
 </html>

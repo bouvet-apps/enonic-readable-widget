@@ -2,7 +2,7 @@
  * Created by zulfeekar.cheriyampu on 22/03/2018.
  */
 var portalLib = require('/lib/xp/portal');
-var thymeleaf = require('/lib/xp/thymeleaf');
+var thymeleaf = require('/lib/thymeleaf');
 var i18nLib = require('/lib/xp/i18n');
 var contentLib = require('/lib/xp/content');
 
@@ -11,9 +11,17 @@ exports.get = function (req) {
     var uid = req.params.uid || 'uid-com-bouvet-widgets-enonic-readable';
 
     var contentId = req.params.contentId;
-    if (!contentId) {
+    if (!contentId && portalLib.getContent()) {
         contentId = portalLib.getContent()._id;
     }
+
+    if (!contentId) {
+        return {
+            contentType: 'text/html',
+            body: '<widget class="error">No content selected</widget>'
+        };
+    }
+
     var content = contentLib.get({
         key: contentId
     });
