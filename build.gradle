@@ -11,7 +11,8 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'com.enonic.xp.app' version '1.0.17'
+    id 'maven-publish'
+    id 'com.enonic.xp.app' version '2.0.0'
 }
 
 xp {
@@ -31,7 +32,7 @@ dependencies {
     compile "com.enonic.xp:portal-api:${xpVersion}"
     include "com.enonic.xp:lib-content:${xpVersion}"
     include "com.enonic.xp:lib-portal:${xpVersion}"
-    include "com.enonic.xp:lib-thymeleaf:${xpVersion}"
+    include "com.enonic.lib:lib-thymeleaf:2.0.0"
     include "com.enonic.xp:lib-i18n:${xpVersion}"
 }
 
