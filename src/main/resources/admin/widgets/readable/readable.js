@@ -8,7 +8,7 @@ var contentLib = require('/lib/xp/content');
 
 exports.get = function (req) {
 
-    var uid = req.params.uid || 'uid-com-bouvet-widgets-enonic-readable';
+    var uid = 'uid-com-bouvet-widgets-enonic-readable';
 
     var contentId = req.params.contentId;
     if (!contentId && portalLib.getContent()) {

@@ -50,23 +50,8 @@
         else el.className = el.className.replace(new RegExp('\\b' + className + '\\b', 'g'), '');
     }
 
-    var widgetDocument = getWidgetDocument();
     var expanded = false;
-    var uid = widgetDocument.baseURI.split('?uid=')[1];
-
-    if (uid.indexOf('&') > -1) {
-        uid = uid.split('&')[0];
-    }
-
-    function getWidgetDocument() {
-        var script = window.HTMLImports ? window.HTMLImports.currentScript : undefined;
-
-        if (!script && !!document.currentScript) {
-            script = document.currentScript.__importElement || document.currentScript;
-        }
-
-        return script ? script.ownerDocument : document;
-    };
+    var uid = 'uid-com-bouvet-widgets-enonic-readable';
 
     /*
      * @ Helpers;
@@ -74,7 +59,7 @@
      * */
     function getWidgetContainer(containerId) {
         containerId = containerId + "_" + uid;
-        return document.getElementById(containerId) || widgetDocument.getElementById(containerId);
+        return document.getElementById(containerId);
     };
 
     function getContentItemPreviewPanel() {
@@ -347,14 +332,12 @@
                 Math.max(text.automatedReadabilityIndex(), 1)) / 5;
         }
 
-
+        // there are 7 reading levels
         for (var i = 0; i < 7; i++) {
-            if (self.props.fleschKincaidReading[i].readingLevel) {
-                var count = self.props.fleschKincaidReading.filter(function (item) {
-                    return item.readingLevel.id == i
-                });
-                chart.push(count);
-            }
+            var count = self.props.fleschKincaidReading.filter(function (item) {
+                return item.readingLevel.id == i
+            });
+            chart.push(count);
         }
 
         chart = chart.map(function (item) {
@@ -466,10 +449,10 @@
             color;
 
         dot = target.getElementsByClassName('com-bouvet-widget-readable__dot')[0];
-        tooltipText = dot.getAttribute('data-score') + '%  - ' + dot.getAttribute('data-readinglevel');
-        color = dot.style.backgroundColor;
+        color = dot ? dot.style.backgroundColor : '';
 
         if (dot && self.props.tooltip) {
+            tooltipText = dot.getAttribute('data-score') + '%  - ' + dot.getAttribute('data-readinglevel');
             self.props.tooltip.style.display = 'inline-block';
             self.props.tooltip.innerHTML = tooltipText;
         }
@@ -693,7 +676,7 @@
             /*
              * Get Json object of labels
              * */
-            var GLOBAL_CONFIG = JSON.parse(widgetDocument.getElementById('com-bouvet-widget_' + uid + '-config-json').firstChild.data);
+            var GLOBAL_CONFIG = JSON.parse(document.getElementById('com-bouvet-widget_' + uid + '-config-json').firstChild.data);
 
             var LABELS = {
                 gradeLevel: GLOBAL_CONFIG.labels.gradeLevel,
